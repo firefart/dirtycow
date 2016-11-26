@@ -12,7 +12,7 @@
 // To use this exploit modify the user values according to your needs
 //
 // Compile with
-// gcc -lcrypt -pthread dirty.c -o dirty
+// gcc -pthread dirty.c -o dirty -lcrypt
 // and just run the newly create binary with ./dirty
 //
 // DON'T FORGET TO RESTORE YOUR /etc/passwd AFTER RUNNING THE EXPLOIT !
