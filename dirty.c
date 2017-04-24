@@ -184,10 +184,10 @@ int main(int argc, char *argv[])
     pthread_join(pth,NULL);
   }
 
-  printf("Done! Check %s to see if the new user was created\n", filename);
-  printf("You can log in with username %s and password %s.\n\n",
+  printf("Done! Check %s to see if the new user was created.\n", filename);
+  printf("You can log in with the username '%s' and the password '%s'.\n\n",
     user.username, plaintext_pw);
-  printf("\nDON'T FORGET TO RESTORE %s FROM %s !!!\n\n",
-    filename, backup_filename);
+    printf("\nDON'T FORGET TO RESTORE! $ mv %s %s\n",
+    backup_filename, filename);
   return 0;
 }
